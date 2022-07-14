@@ -5,13 +5,13 @@ const CLIENT_ID = process.env.REACT_APP_PAYPAL_CLIENT_ID
 const GQL_SERVER = process.env.REACT_APP_GQL_SERVER
 const TICKET_REQUEST = {
   attributes: {
-    event: "events/d38aa50f-bc05-4429-b230-24bb0d61413d",
+    event: "events/2791c357-3166-4107-a9e0-128e349feb2c",
     items: [{
-      ticketTierKey: "a34a4b01-597a-4b7d-b5e3-575d230fdf5a",
+      product: "products/282cb454-a73f-4d4b-8347-fc8dfcd10249",
       quantity: 1
     },
     {
-      ticketTierKey: "68c69f95-ea0c-40e9-b784-9d323c907d6f",
+      product: "products/9e6f2045-b0ad-4dac-a7cc-590a4d988832",
       quantity: 2
     }]
   }
@@ -62,9 +62,10 @@ const Paypal = ({ token }) => {
                   amount
                   items {
                     _id
-                    tierDetails {
-                      current
-                      price
+                    product {
+                      _id
+                      name
+                      amount
                     }
                   }
                 }
