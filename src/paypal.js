@@ -5,20 +5,32 @@ const CLIENT_ID = process.env.REACT_APP_PAYPAL_CLIENT_ID
 const GQL_SERVER = process.env.REACT_APP_GQL_SERVER
 const TICKET_REQUEST = {
   attributes: {
-    event: "events/2791c357-3166-4107-a9e0-128e349feb2c",
+    event: "events/d9e0e03e-5fdc-42b5-bf47-0cf732a5bfb0",
     items: [{
-      product: "products/282cb454-a73f-4d4b-8347-fc8dfcd10249",
+      product: "products/6202a943-af42-4333-8032-4c564b96e7b8",
       quantity: 1
     },
     {
-      product: "products/9e6f2045-b0ad-4dac-a7cc-590a4d988832",
+      product: "products/1d7ec2d0-593c-4030-aecc-caf60472e531",
       quantity: 2
-    }]
+    }],
+    billing: {
+      address: {
+        addressLine1: "Test",
+        addressLine2: "",
+        city: "",
+        state: "",
+        postalCode: 22310,
+      },
+      fullName: "Test Guy"
+    }
   }
 }
 
 const Paypal = ({ token }) => {
   if (!token) return (<div>No Token</div>)
+  console.log('CLIENT_ID ', CLIENT_ID)
+  console.log('GQL_SERVER ', GQL_SERVER)
 
   const SubmitPayment = ({ customStyle }) => {
     const [paying, setPaying] = useState(false);
@@ -59,8 +71,7 @@ const Paypal = ({ token }) => {
               query: `mutation paypalCapturePayment($orderId: String!) {
                 paypalCapturePayment(orderId: $orderId) {
                   _id
-                  amount
-                  items {
+                  productItems {
                     _id
                     product {
                       _id
